@@ -1,0 +1,29 @@
+=== RESUMEN DE COMANDOS PARA TRABAJAR CON TU REPOSITORIO ===
+
+--- SUBIDA INICIAL (SOLO LA PRIMERA VEZ) ---
+git init
+git add .
+git commit -m "Primer commit"
+git branch -M main
+git remote add origin https://github.com/tu-usuario/tu-repositorio.git
+git push -u origin main
+
+--- FLUJO DIARIO (GUARDAR Y SUBIR CAMBIOS) ---
+git status                      # Ver archivos modificados
+git add .                       # Preparar todos los cambios
+git commit -m "Mensaje"         # Guardar cambios en local
+git push                        # Subir cambios a GitHub
+
+--- ACTUALIZAR Y DESCARGAR ---
+git pull                        # Traer cambios recientes de GitHub
+git clone <url-del-repo>        # Descargar un proyecto por primera vez
+
+--- TRABAJAR CON RAMAS ---
+git branch                      # Ver ramas existentes
+git checkout -b <nombre-rama>   # Crear rama nueva y entrar en ella
+git checkout main               # Volver a la rama principal
+git merge <nombre-rama>         # Unir rama a main (estando en main)
+
+--- REVISAR Y DESHACER ---
+git log --oneline               # Ver historial corto de commits
+git restore <archivo>           # Descartar cambios no guardados en un archivo
