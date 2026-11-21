@@ -39,14 +39,32 @@ public class ArbolArtistas {
     public Artista buscarPorId(String id) {
         return buscarPorIdRec(raiz, id);
     }
-    private Artista buscarPorIdRec(NodoArtista actual, String id) {
-        if (actual == null){
-            return null;
-        } else if (actual.getArtista().getId().equals(id)){
-            return actual.getArtista();
-        } else {
-            return buscarPorIdRec(actual.getAnterior(), id);
+ private Artista buscarPorIdRec(NodoArtista actual, String id) {
+    if (actual == null) {
+        return null;
+    }
+    if (actual.getArtista().getId().equals(id)) {
+        return actual.getArtista();
+    }
+    Artista encontrado = buscarPorIdRec(actual.getAnterior(), id);
+    if (encontrado != null) {
+        return encontrado;
+    }
+    return buscarPorIdRec(actual.getSiguiente(), id);
+}
+
+    public boolean existeId(String id) {
+        return existeIdRec(raiz, id);
+    }
+    private boolean existeIdRec(NodoArtista actual, String id) {
+        if (actual == null) {
+            return false;
         }
+        if (actual.getArtista().getId().equals(id)) {
+            return true;
+        }
+        return existeIdRec(actual.getAnterior(), id) || existeIdRec(actual.getSiguiente(), id);
     }
 }
+
 

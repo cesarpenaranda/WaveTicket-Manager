@@ -14,12 +14,18 @@ public class Main {
         arbol.insertar(new Artista("A003", "Metallica", "Metal", 10));
         arbol.insertar(new Artista("A004", "Taylor Swift", "Pop", 1));
         arbol.insertar(new Artista("A005", "Karol G", "Reggaeton", 5));
+        arbol.mostrarEnOrden();
         // ===== PROBAR buscarPorId =====
         System.out.println("Artista con ID A001: " + arbol.buscarPorId("A001"));
         System.out.println("Artista con ID A002: " + arbol.buscarPorId("A002"));
         System.out.println("Artista con ID A003: " + arbol.buscarPorId("A003"));
         System.out.println("Artista con ID A004: " + arbol.buscarPorId("A004"));
-        System.out.println("Artista con ID A005: " + arbol.buscarPorId("A005"));        
-        arbol.mostrarEnOrden();
+        System.out.println("Artista con ID A005: " + arbol.buscarPorId("A005"));
+        System.out.println("Existe A001? " + arbol.existeId("A001"));        
+        System.out.println("Existe A006? " + arbol.existeId("A006"));
+        // ===== PRUEBA FASE 2 =====
+        ArbolArtistas arbol2ArbolArtistas = new ArbolArtistas();
+        CargadorArchivos.cargarArtistas(arbol2ArbolArtistas, "artistas.txt");
+        arbol2ArbolArtistas.mostrarEnOrden();
     }
 }
