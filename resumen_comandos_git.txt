@@ -11,7 +11,9 @@ git push -u origin main
 --- FLUJO DIARIO (GUARDAR Y SUBIR CAMBIOS) ---
 git status                      # Ver archivos modificados
 git add .                       # Preparar todos los cambios
+git add . ':!CI0112 Tarea Progr 2 IIS 2026.pdf'  
 git commit -m "Mensaje"         # Guardar cambios en local
+git commit -m "Avance: $(date '+%Y-%m-%d %H:%M:%S')"
 git push                        # Subir cambios a GitHub
 
 --- ACTUALIZAR Y DESCARGAR ---

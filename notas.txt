@@ -1,0 +1,10 @@
+=== DECISIONES DE DISENO (completar conforme avanzo) ===
+
+Formato artistas.txt  : id;nombre;genero;ranking
+Formato conciertos.txt: codigo;nombre;fecha;lugar;idArtista;filas;columnas;estado;costo
+Formato fans.txt      : numero;cedula;nombre;telefono;codigoConcierto;cantidad
+
+- Ranking repetido en el arbol: 
+- Cola: una por concierto o una general?: 
+- Cliente interactivo escoge asientos uno por uno o contiguos?: 
+- Que muestra la opcion Reportes?: 

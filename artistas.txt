@@ -1,0 +1,12 @@
+A001;Coldplay;Rock alternativo;7
+A002;Bad Bunny;Reggaeton;3
+A003;Metallica;Metal;10
+A004;Taylor Swift;Pop;1
+A005;Karol G;Reggaeton;5
+A006;Malpais;Rock;9
+A007;Shakira;Pop latino;12
+A008;Dua Lipa;Pop;2
+A009;Bruno Mars;Funk;4
+A010;Debi Nova;Pop;6
+A011;Gandhi;Rock;8
+A012;Marc Anthony;Salsa;11

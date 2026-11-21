@@ -1,0 +1,6 @@
+C001;Music of the Spheres Tour;15/02/2027;Estadio Nacional;A001;5;8;ACTIVO;45000
+C002;Most Wanted Tour;20/03/2027;Estadio Nacional;A002;4;6;ACTIVO;55000
+C003;Noche de Rock Tico;10/01/2027;Teatro Melico Salazar;A006;2;3;ACTIVO;15000
+C004;M72 World Tour;05/05/2027;Parque Viva;A003;4;5;EN_PLANEACION;60000
+C005;The Eras Tour;18/04/2027;Estadio Nacional;A004;5;6;CANCELADO;80000
+C006;Manana Sera Bonito Tour;12/06/2027;Estadio Nacional;A005;4;5;ACTIVO;50000

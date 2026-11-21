@@ -64,4 +64,10 @@ public class Cliente {
     public void setCantidadEntradas(int cantidadEntradas) {
         this.cantidadEntradas = cantidadEntradas;
     }
+
+    @Override
+    public String toString() {
+        return "#" + numero + " " + nombre + " (ced. " + cedula + ") -> " + cantidadEntradas
+                + " entradas para " + codigoConcierto;
+    }
 }
