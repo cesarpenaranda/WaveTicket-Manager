@@ -1,4 +1,6 @@
+
 public class NodoArtista {
+
     private Artista dato;
     private NodoArtista siguiente;
     private NodoArtista anterior;
@@ -9,23 +11,27 @@ public class NodoArtista {
         this.anterior = null;
     }
 
-    public Artista getArtista(){
+    public Artista getArtista() {
         return dato;
     }
-    public NodoArtista getSiguiente(){
+
+    public NodoArtista getSiguiente() {
         return siguiente;
     }
-    public NodoArtista getAnterior(){
+
+    public NodoArtista getAnterior() {
         return anterior;
     }
 
-    public void setArtista(Artista dato){
+    public void setArtista(Artista dato) {
         this.dato = dato;
     }
-    public void setSiguiente(NodoArtista siguiente){
+
+    public void setSiguiente(NodoArtista siguiente) {
         this.siguiente = siguiente;
     }
-    public void setAnterior(NodoArtista anterior){
+
+    public void setAnterior(NodoArtista anterior) {
         this.anterior = anterior;
     }
 }

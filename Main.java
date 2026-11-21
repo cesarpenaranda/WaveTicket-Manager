@@ -1,3 +1,4 @@
+
 public class Main {
 
     public static void main(String[] args) {
@@ -21,11 +22,22 @@ public class Main {
         System.out.println("Artista con ID A003: " + arbol.buscarPorId("A003"));
         System.out.println("Artista con ID A004: " + arbol.buscarPorId("A004"));
         System.out.println("Artista con ID A005: " + arbol.buscarPorId("A005"));
-        System.out.println("Existe A001? " + arbol.existeId("A001"));        
+        System.out.println("Existe A001? " + arbol.existeId("A001"));
         System.out.println("Existe A006? " + arbol.existeId("A006"));
         // ===== PRUEBA FASE 2 =====
         ArbolArtistas arbol2ArbolArtistas = new ArbolArtistas();
         CargadorArchivos.cargarArtistas(arbol2ArbolArtistas, "artistas.txt");
         arbol2ArbolArtistas.mostrarEnOrden();
+        // ===== PRUEBA FASE 3 =====
+        Artista malpais = new Artista("A006", "Malpais", "Rock", 9);
+        Concierto concierto1= new Concierto("C003", "Noche de Rock Tico", "10/01/2027", malpais, 2, 3, "ACTIVO", 15000, "Teatro Melico Salazar");concierto1.mostrarAsientos();
+        System.out.println("Vender (0,1): " + concierto1.venderAsiento(0, 1));   
+        System.out.println("Vender (0,1) otra vez: " + concierto1.venderAsiento(0, 1));
+        System.out.println("Asignar 4: " + concierto1.asignarPrimerosLibres(4)); 
+        concierto1.mostrarAsientos();
+        System.out.println("Disponibles: " + concierto1.contarDisponibles());   
+        System.out.println("Asignar 2: " + concierto1.asignarPrimerosLibres(2)); 
+        System.out.println("Asignar 1: " + concierto1.asignarPrimerosLibres(1)); 
+        System.out.println("Lleno? " + concierto1.estaLleno() + " Estado: " + concierto1.getEstado()); 
     }
 }
