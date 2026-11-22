@@ -11,7 +11,6 @@ public class Concierto {
     private String estado;
     private double costo;
     private char[][] asientos;
-    private ColaClientes colaClientes;
 
     public Concierto(String codigo, String nombre, String fecha, Artista artista, int filas, int columnas, String estado, double costo, String lugar) {
         this.codigo = codigo;
@@ -29,7 +28,6 @@ public class Concierto {
                 this.asientos[i][j] = '_';
             }
         }
-        this.colaClientes = new ColaClientes();
     }
 
     public String getCodigo() {
@@ -74,10 +72,6 @@ public class Concierto {
 
     public int getFilas() {
         return filas;
-    }
-
-    public ColaClientes getColaClientes() {
-        return colaClientes;
     }
 
     public void mostrarAsientos() {

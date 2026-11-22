@@ -1,4 +1,3 @@
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -6,12 +5,14 @@ public class WaveticketManager {
 
     private ArbolArtistas arbolArtistas;
     private ListaConciertos listaConciertos;
+    private ColaClientes colaClientes;
     private Cliente[] fans;
     private Random random;
 
     public WaveticketManager() {
         arbolArtistas = new ArbolArtistas();
         listaConciertos = new ListaConciertos();
+        colaClientes = new ColaClientes();
         fans = new Cliente[0];
         random = new Random();
     }
@@ -20,7 +21,7 @@ public class WaveticketManager {
         CargadorArchivos.cargarArtistas(arbolArtistas, "artistas.txt");
         CargadorArchivos.cargarConciertos(listaConciertos, arbolArtistas, "conciertos.txt");
         fans = CargadorArchivos.cargarFans("fans.txt");
-        CargadorArchivos.repartirFansEnColas(fans, listaConciertos);
+        CargadorArchivos.cargarColaFans(fans, colaClientes);
     }
 
     public ArbolArtistas getArbolArtistas() {
@@ -29,6 +30,10 @@ public class WaveticketManager {
 
     public ListaConciertos getListaConciertos() {
         return listaConciertos;
+    }
+
+    public ColaClientes getColaClientes() {
+        return colaClientes;
     }
 
     public Cliente[] getFans() {
@@ -51,17 +56,21 @@ public class WaveticketManager {
         return numero;
     }
 
-    public void atenderSiguiente(Concierto c) {
+    public void atenderSiguiente() {
+        if (colaClientes.estaVacia()) {
+            System.out.println("no hay clientes en la cola");
+            return;
+        }
+        Cliente clienteAtendido = colaClientes.desencolar();
+        System.out.println("atendiendo a: " + clienteAtendido.getNombre()
+                + " (ced: " + clienteAtendido.getCedula()
+                + ") -> concierto: " + clienteAtendido.getCodigoConcierto());
+
+        Concierto c = listaConciertos.buscarPorCodigo(clienteAtendido.getCodigoConcierto());
         if (c == null) {
-            System.out.println("concierto no encontrado");
+            System.out.println("el concierto " + clienteAtendido.getCodigoConcierto() + " no existe");
             return;
         }
-        if (c.getColaClientes().estaVacia()) {
-            System.out.println("no hay clientes en la cola de " + c.getNombre());
-            return;
-        }
-        Cliente clienteAtendido = c.getColaClientes().desencolar();
-        System.out.println("atendiendo a: " + clienteAtendido.getNombre() + " (ced: " + clienteAtendido.getCedula() + ")");
         if (c.getEstado().equalsIgnoreCase("CANCELADO")) {
             System.out.println("el concierto " + c.getNombre() + " esta cancelado, no se venden entradas");
             return;
@@ -74,6 +83,7 @@ public class WaveticketManager {
             System.out.println("el concierto " + c.getNombre() + " no esta activo todavia");
             return;
         }
+
         int cantidad = clienteAtendido.getCantidadEntradas();
         if (cantidad > c.contarDisponibles()) {
             System.out.println("no hay espacio suficiente para " + cantidad + " entradas (" + clienteAtendido.getNombre() + ")");
@@ -90,7 +100,7 @@ public class WaveticketManager {
 
     public void comprarEntradas(Scanner sc) {
         listaConciertos.mostrarConciertosActivos();
-        System.out.print("codigo del concierto: ");
+        System.out.print("codigo del concierto (Ej: C001): ");
         String codigo = sc.nextLine().trim();
 
         Concierto c = listaConciertos.buscarPorCodigo(codigo);
@@ -106,8 +116,8 @@ public class WaveticketManager {
         int antes = random.nextInt(4);
         if (antes > 0) {
             System.out.println("hay " + antes + " personas antes que usted en la fila");
-            for (int i = 0; i < antes && !c.getColaClientes().estaVacia(); i++) {
-                atenderSiguiente(c);
+            for (int i = 0; i < antes && !colaClientes.estaVacia(); i++) {
+                atenderSiguiente();
             }
         } else {
             System.out.println("no hay nadie antes que usted, pasa directo");
@@ -118,10 +128,10 @@ public class WaveticketManager {
             return;
         }
 
-        int cedula = leerEntero(sc, "cedula: ");
-        System.out.print("nombre completo: ");
+        int cedula = leerEntero(sc, "cedula (Ej: 114560789): ");
+        System.out.print("nombre completo (Ej: Ana Rodriguez): ");
         String nombre = sc.nextLine().trim();
-        int telefono = leerEntero(sc, "telefono: ");
+        int telefono = leerEntero(sc, "telefono (Ej: 88112233): ");
 
         c.mostrarAsientos();
         int disponibles = c.contarDisponibles();

@@ -139,19 +139,13 @@ public class CargadorArchivos {
         return fans;
     }
 
-    public static void repartirFansEnColas(Cliente[] fans, ListaConciertos lista) {
-        if (fans == null || lista == null) {
+    public static void cargarColaFans(Cliente[] fans, ColaClientes cola) {
+        if (fans == null || cola == null) {
             return;
         }
         for (int i = 0; i < fans.length; i++) {
-            Cliente fan = fans[i];
-            if (fan != null) {
-                Concierto concierto = lista.buscarPorCodigo(fan.getCodigoConcierto());
-                if (concierto != null) {
-                    concierto.getColaClientes().encolar(fan);
-                } else {
-                    System.out.println("Concierto no encontrado para el fan: " + fan.getNombre());
-                }
+            if (fans[i] != null) {
+                cola.encolar(fans[i]);
             }
         }
     }
