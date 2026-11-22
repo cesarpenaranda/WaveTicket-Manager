@@ -9,6 +9,10 @@ public class ListaConciertos {
         this.cola = null;
     }
 
+    public NodoConcierto getCabeza() {
+        return cabeza;
+    }
+
     public Concierto buscarPorCodigo(String codigo) {
         NodoConcierto actual = cabeza;
         while (actual != null) {
@@ -66,8 +70,8 @@ public class ListaConciertos {
         System.out.println("Lista de Conciertos Activos:");
         while (actual != null) {
             Concierto concierto = actual.getConcierto();
-            if (concierto.getEstado().equalsIgnoreCase("Activo")) {
-                System.out.println("Código: " + concierto.getCodigo() + ", Nombre: " + concierto.getNombre() + ", Fecha: " + concierto.getFecha() + ", Artista: " + concierto.getArtista().getNombre() + ", Lugar: " + concierto.getLugar() + ", Estado: " + concierto.getEstado() + ", Costo: " + concierto.getCosto());
+            if (concierto.getEstado().equalsIgnoreCase("ACTIVO")) {
+                System.out.println("codigo: " + concierto.getCodigo() + ", nombre: " + concierto.getNombre() + ", fecha: " + concierto.getFecha() + ", artista: " + concierto.getArtista().getNombre() + ", lugar: " + concierto.getLugar() + ", costo: " + concierto.getCosto() + ", disponibles: " + concierto.contarDisponibles() + "/" + concierto.getCapacidad());
                 hayActivos = true;
             }
             actual = actual.getSiguiente();
@@ -87,7 +91,8 @@ public class ListaConciertos {
         System.out.println("Conciertos del Artista: " + nombreArtista);
         while (actual != null) {
             Concierto concierto = actual.getConcierto();
-            if (concierto.getArtista().getNombre().equalsIgnoreCase(nombreArtista)) {
+            if (concierto.getArtista().getNombre().equalsIgnoreCase(nombreArtista)
+                    || concierto.getArtista().getId().equalsIgnoreCase(nombreArtista)) {
                 System.out.println("Código: " + concierto.getCodigo() + ", Nombre: " + concierto.getNombre() + ", Fecha: " + concierto.getFecha() + ", Lugar: " + concierto.getLugar() + ", Estado: " + concierto.getEstado() + ", Costo: " + concierto.getCosto());
                 encontrado = true;
             }
@@ -139,6 +144,9 @@ public class ListaConciertos {
         NodoConcierto actual = cabeza;
         while (actual != null) {
             if (actual.getConcierto().getCodigo().equals(codigo)) {
+                if (actual.getConcierto().getEstado().equalsIgnoreCase("CANCELADO")) {
+                    return "ese concierto ya estaba cancelado";
+                }
                 if (actual.getConcierto().tieneVentas()) {
                     return "No se puede cancelar el concierto, ya tiene ventas registradas.";
                 }
@@ -149,5 +157,5 @@ public class ListaConciertos {
         }
         return "Concierto no encontrado.";
     }
-    
+
 }

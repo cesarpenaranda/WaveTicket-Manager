@@ -16,10 +16,10 @@ public class ColaClientes {
     }
 
     public void encolar(Cliente cliente) {
-       NodoCliente nuevoNodo = new NodoCliente(cliente);
-       if (cliente == null) {
+        if (cliente == null) {
             return;
         }
+        NodoCliente nuevoNodo = new NodoCliente(cliente);
         if (estaVacia()) {
             cabeza = nuevoNodo;
             cola = nuevoNodo;
@@ -46,16 +46,19 @@ public class ColaClientes {
     public void mostrarCola() {
         NodoCliente actual = cabeza;
         if (estaVacia()) {
-            System.out.println("La cola está vacía.");
+            System.out.println("la cola esta vacia");
             return;
         }
+        int posicion = 1;
         while (actual != null) {
-            System.out.println(actual.getDato());
+            System.out.println(posicion + ". " + actual.getDato());
             actual = actual.getSiguiente();
+            posicion++;
         }
-       }
-       public int getTamano() {
-        return tamano;
-}
-}
+    }
 
+    public int getTamano() {
+        return tamano;
+    }
+
+}

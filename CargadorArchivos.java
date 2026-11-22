@@ -60,7 +60,8 @@ public class CargadorArchivos {
                             Artista artista = arbol.buscarPorId(idArtista);
                             if (artista == null) {
                                 System.out.println("Artista con ID " + idArtista + " no encontrado para el concierto: " + nombre);
-
+                            } else if (filas <= 0 || columnas <= 0 || costo < 0) {
+                                System.out.println("Dimensiones o costo invalidos en linea: " + linea);
                             } else {
                                 Concierto concierto = new Concierto(codigo, nombre, fecha, artista, filas, columnas, estado, costo, lugar);
                                 lista.agregarConcierto(concierto);
@@ -76,6 +77,82 @@ public class CargadorArchivos {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + e.getMessage());
+        }
+    }
+
+    public static int contarLineas(String rutaArchivo) {
+        try {
+            Scanner scanner = new Scanner(new File(rutaArchivo));
+            int contador = 0;
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine().trim();
+                if (!linea.isEmpty()) {
+                    contador++;
+                }
+            }
+            scanner.close();
+            System.out.println("El archivo " + rutaArchivo + " tiene " + contador + " lineas.");
+            return contador;
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado: " + e.getMessage());
+
+            return 0;
+        }
+
+    }
+
+    public static Cliente[] cargarFans(String rutaArchivo) {
+        int total = contarLineas(rutaArchivo);
+        Cliente[] fans = new Cliente[total];
+        int index = 0;
+        try {
+            Scanner scanner = new Scanner(new File(rutaArchivo));
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine().trim();
+                if (!linea.isEmpty()) {
+                    String[] datos = linea.split(";");
+                    if (datos.length == 6) {
+                        try {
+                            int numero = Integer.parseInt(datos[0].trim());
+                            int cedula = Integer.parseInt(datos[1].trim());
+                            String nombre = datos[2].trim();
+                            int telefono = Integer.parseInt(datos[3].trim());
+                            String codigoConcierto = datos[4].trim();
+                            int cantidadEntradas = Integer.parseInt(datos[5].trim());
+
+                            if (index < fans.length) {
+                                fans[index] = new Cliente(numero, cedula, nombre, telefono, codigoConcierto, cantidadEntradas);
+                                index++;
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Datos invalidos en linea: " + linea);
+                        }
+                    } else {
+                        System.out.println("Linea incorrecta: " + linea);
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado: " + e.getMessage());
+        }
+        return fans;
+    }
+
+    public static void repartirFansEnColas(Cliente[] fans, ListaConciertos lista) {
+        if (fans == null || lista == null) {
+            return;
+        }
+        for (int i = 0; i < fans.length; i++) {
+            Cliente fan = fans[i];
+            if (fan != null) {
+                Concierto concierto = lista.buscarPorCodigo(fan.getCodigoConcierto());
+                if (concierto != null) {
+                    concierto.getColaClientes().encolar(fan);
+                } else {
+                    System.out.println("Concierto no encontrado para el fan: " + fan.getNombre());
+                }
+            }
         }
     }
 }

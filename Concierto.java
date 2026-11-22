@@ -81,8 +81,14 @@ public class Concierto {
     }
 
     public void mostrarAsientos() {
-        System.out.println("Asientos del concierto " + nombre + ":");
+        System.out.println("Asientos del concierto " + nombre + " (" + contarDisponibles() + "/" + getCapacidad() + " disponibles):");
+        System.out.print("    ");
+        for (int j = 0; j < columnas; j++) {
+            System.out.print((j + 1) + " ");
+        }
+        System.out.println();
         for (int i = 0; i < filas; i++) {
+            System.out.print((i + 1) + "   ");
             for (int j = 0; j < columnas; j++) {
                 System.out.print(asientos[i][j] + " ");
             }
@@ -127,10 +133,10 @@ public class Concierto {
             if (estaLleno()) {
                 this.estado = "VENDIDO";
             }
-            System.out.println("Asiento vendido: Fila " + fila + ", Columna " + columna);
+            System.out.println("Asiento vendido: Fila " + (fila + 1) + ", Columna " + (columna + 1));
             return true;
         } else {
-            System.out.println("Asiento no disponible: Fila " + fila + ", Columna " + columna);
+            System.out.println("Asiento no disponible: Fila " + (fila + 1) + ", Columna " + (columna + 1));
             return false;
         }
     }

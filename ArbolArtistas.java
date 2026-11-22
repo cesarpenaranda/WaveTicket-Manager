@@ -21,7 +21,7 @@ public class ArbolArtistas {
         }
         if (dato.getRanking() < nodo.getArtista().getRanking()) {
             nodo.setAnterior(insertarRecursivo(nodo.getAnterior(), dato));
-        } else if (dato.getRanking() > nodo.getArtista().getRanking()) {
+        } else {
             nodo.setSiguiente(insertarRecursivo(nodo.getSiguiente(), dato));
         }
         return nodo;
@@ -39,7 +39,7 @@ public class ArbolArtistas {
         NodoArtista actual = nodo;
         if (actual != null) {
             mostrarEnOrdenRec(actual.getAnterior());
-            System.out.println(actual.getArtista().getNombre() + " - Ranking: " + actual.getArtista().getRanking());
+            System.out.println(actual.getArtista());
             mostrarEnOrdenRec(actual.getSiguiente());
         }
     }
