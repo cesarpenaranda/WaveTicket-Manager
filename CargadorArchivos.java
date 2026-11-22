@@ -38,4 +38,44 @@ public class CargadorArchivos {
             System.out.println("Archivo no encontrado: " + e.getMessage());
         }
     }
+
+    public static void cargarConciertos(ListaConciertos lista, ArbolArtistas arbol, String rutaArchivo) {
+        try {
+            Scanner scanner = new Scanner(new File(rutaArchivo));
+            while (scanner.hasNextLine()) {
+                String linea = scanner.nextLine().trim();
+                if (!linea.isEmpty()) {
+                    String[] datos = linea.split(";");
+                    if (datos.length == 9) {
+                        try {
+                            String codigo = datos[0].trim();
+                            String nombre = datos[1].trim();
+                            String fecha = datos[2].trim();
+                            String lugar = datos[3].trim();
+                            String idArtista = datos[4].trim();
+                            int filas = Integer.parseInt(datos[5].trim());
+                            int columnas = Integer.parseInt(datos[6].trim());
+                            String estado = datos[7].trim();
+                            double costo = Double.parseDouble(datos[8].trim());
+                            Artista artista = arbol.buscarPorId(idArtista);
+                            if (artista == null) {
+                                System.out.println("Artista con ID " + idArtista + " no encontrado para el concierto: " + nombre);
+
+                            } else {
+                                Concierto concierto = new Concierto(codigo, nombre, fecha, artista, filas, columnas, estado, costo, lugar);
+                                lista.agregarConcierto(concierto);
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Datos invalidos en linea: " + linea);
+                        }
+                    } else {
+                        System.out.println("Linea incorrecta: " + linea);
+                    }
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Archivo no encontrado: " + e.getMessage());
+        }
+    }
 }

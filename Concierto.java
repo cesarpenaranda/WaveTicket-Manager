@@ -1,3 +1,4 @@
+
 public class Concierto {
 
     private String codigo;
@@ -24,7 +25,7 @@ public class Concierto {
         this.asientos = new char[filas][columnas];
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                    this.asientos[i][j] = '_';
+                this.asientos[i][j] = '_';
             }
         }
     }
@@ -60,6 +61,7 @@ public class Concierto {
     public char[][] getAsientos() {
         return asientos;
     }
+
     public String getLugar() {
         return lugar;
     }
@@ -93,17 +95,19 @@ public class Concierto {
         }
         return disponibles;
     }
-    public boolean estaLleno(){
+
+    public boolean estaLleno() {
         return contarDisponibles() == 0;
     }
 
-    public boolean tieneVentas (){
+    public boolean tieneVentas() {
         return contarDisponibles() < getCapacidad();
     }
 
     public int getCapacidad() {
         return filas * columnas;
     }
+
     public boolean asientoDisponible(int fila, int columna) {
         if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
             return false;
@@ -114,7 +118,7 @@ public class Concierto {
     public boolean venderAsiento(int fila, int columna) {
         if (asientoDisponible(fila, columna)) {
             asientos[fila][columna] = 'X';
-            if(estaLleno()){
+            if (estaLleno()) {
                 this.estado = "VENDIDO";
             }
             System.out.println("Asiento vendido: Fila " + fila + ", Columna " + columna);
@@ -125,7 +129,7 @@ public class Concierto {
         }
     }
 
-        public boolean asignarPrimerosLibres(int cantidad) {
+    public boolean asignarPrimerosLibres(int cantidad) {
         if (cantidad <= 0 || cantidad > contarDisponibles()) {
             System.out.println("No hay suficientes asientos disponibles para asignar " + cantidad + " asientos.");
             return false;
@@ -141,4 +145,4 @@ public class Concierto {
         }
         return true;
     }
-}  
+}

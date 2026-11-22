@@ -29,7 +29,7 @@ public class ArbolArtistas {
 
     public void mostrarEnOrden() {
         if (estaVacio()) {
-            System.out.print("No hay artista");
+            System.out.println("No hay artistas.");
         } else {
             mostrarEnOrdenRec(raiz);
         }

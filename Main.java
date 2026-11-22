@@ -30,14 +30,35 @@ public class Main {
         arbol2ArbolArtistas.mostrarEnOrden();
         // ===== PRUEBA FASE 3 =====
         Artista malpais = new Artista("A006", "Malpais", "Rock", 9);
-        Concierto concierto1= new Concierto("C003", "Noche de Rock Tico", "10/01/2027", malpais, 2, 3, "ACTIVO", 15000, "Teatro Melico Salazar");concierto1.mostrarAsientos();
-        System.out.println("Vender (0,1): " + concierto1.venderAsiento(0, 1));   
-        System.out.println("Vender (0,1) otra vez: " + concierto1.venderAsiento(0, 1));
-        System.out.println("Asignar 4: " + concierto1.asignarPrimerosLibres(4)); 
+        Concierto concierto1 = new Concierto("C003", "Noche de Rock Tico", "10/01/2027", malpais, 2, 3, "ACTIVO", 15000, "Teatro Melico Salazar");
         concierto1.mostrarAsientos();
-        System.out.println("Disponibles: " + concierto1.contarDisponibles());   
-        System.out.println("Asignar 2: " + concierto1.asignarPrimerosLibres(2)); 
-        System.out.println("Asignar 1: " + concierto1.asignarPrimerosLibres(1)); 
-        System.out.println("Lleno? " + concierto1.estaLleno() + " Estado: " + concierto1.getEstado()); 
+        System.out.println("Vender (0,1): " + concierto1.venderAsiento(0, 1));
+        System.out.println("Vender (0,1) otra vez: " + concierto1.venderAsiento(0, 1));
+        System.out.println("Asignar 4: " + concierto1.asignarPrimerosLibres(4));
+        concierto1.mostrarAsientos();
+        System.out.println("Disponibles: " + concierto1.contarDisponibles());
+        System.out.println("Asignar 2: " + concierto1.asignarPrimerosLibres(2));
+        System.out.println("Asignar 1: " + concierto1.asignarPrimerosLibres(1));
+        System.out.println("Lleno? " + concierto1.estaLleno() + " Estado: " + concierto1.getEstado());
+        // ===== PRUEBA FASE 4 =====
+        ArbolArtistas arbol2 = new ArbolArtistas();
+        ListaConciertos lista = new ListaConciertos();
+        CargadorArchivos.cargarArtistas(arbol2, "artistas.txt");
+        CargadorArchivos.cargarConciertos(lista, arbol2, "conciertos.txt");
+        System.out.println("--- TODOS ---");
+        lista.mostrarTodosLosConciertos();
+        System.out.println("--- ACTIVOS ---");
+        lista.mostrarConciertosActivos();
+        System.out.println("--- DE MALPAIS ---");
+        lista.buscarPorArtista("Malpais");
+        System.out.println(lista.cancelarConcierto("C999"));
+        lista.buscarPorCodigo("C001").venderAsiento(0, 0);
+        System.out.println(lista.cancelarConcierto("C001"));
+        System.out.println(lista.cancelarConcierto("C006"));
+        lista.eliminarConcierto("C001");
+        lista.eliminarConcierto("C006");
+        lista.eliminarConcierto("C003");
+        System.out.println("--- QUEDAN ---");
+        lista.mostrarTodosLosConciertos();
     }
 }
