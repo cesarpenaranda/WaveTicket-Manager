@@ -1,4 +1,5 @@
 
+// Arbol binario de busqueda ordenado por ranking (menor a la izq, mayor o igual a la der)
 public class ArbolArtistas {
 
     private NodoArtista raiz;
@@ -35,6 +36,7 @@ public class ArbolArtistas {
         }
     }
 
+    // Recorrido in-orden para que salgan ordenados por ranking
     private void mostrarEnOrdenRec(NodoArtista nodo) {
         NodoArtista actual = nodo;
         if (actual != null) {
@@ -48,11 +50,12 @@ public class ArbolArtistas {
         return buscarPorIdRec(raiz, id);
     }
 
+    // Como el arbol se ordena por ranking y no por id, hay que revisar ambos lados
     private Artista buscarPorIdRec(NodoArtista actual, String id) {
         if (actual == null) {
             return null;
         }
-        if (actual.getArtista().getId().equals(id)) {
+        if (actual.getArtista().getId().equalsIgnoreCase(id)) {
             return actual.getArtista();
         }
         Artista encontrado = buscarPorIdRec(actual.getAnterior(), id);
@@ -70,7 +73,7 @@ public class ArbolArtistas {
         if (actual == null) {
             return false;
         }
-        if (actual.getArtista().getId().equals(id)) {
+        if (actual.getArtista().getId().equalsIgnoreCase(id)) {
             return true;
         }
         return existeIdRec(actual.getAnterior(), id) || existeIdRec(actual.getSiguiente(), id);

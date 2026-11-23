@@ -22,6 +22,7 @@ public class Concierto {
         this.lugar = lugar;
         this.estado = estado;
         this.costo = costo;
+        // Matriz de asientos: '_' libre, 'X' ocupado
         this.asientos = new char[filas][columnas];
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
@@ -135,12 +136,14 @@ public class Concierto {
         }
     }
 
+    // Para los fans precargados: asigna los primeros libres que encuentre aunque no esten juntos
     public boolean asignarPrimerosLibres(int cantidad) {
         if (cantidad <= 0 || cantidad > contarDisponibles()) {
             System.out.println("No hay suficientes asientos disponibles para asignar " + cantidad + " asientos.");
             return false;
         }
         int asignados = 0;
+        // La condicion asignados < cantidad detiene el ciclo apenas se completan
         for (int i = 0; i < filas && asignados < cantidad; i++) {
             for (int j = 0; j < columnas && asignados < cantidad; j++) {
                 if (asientoDisponible(i, j)) {

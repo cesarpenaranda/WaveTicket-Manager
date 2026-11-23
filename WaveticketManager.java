@@ -5,7 +5,7 @@ public class WaveticketManager {
 
     private ArbolArtistas arbolArtistas;
     private ListaConciertos listaConciertos;
-    private ColaClientes colaClientes;
+    private ColaClientes colaClientes; // una sola cola para todos los conciertos
     private Cliente[] fans;
     private Random random;
 
@@ -56,11 +56,25 @@ public class WaveticketManager {
         return numero;
     }
 
+    public String leerTexto(Scanner sc, String mensaje) {
+        String texto = "";
+        while (texto.isEmpty()) {
+            System.out.print(mensaje);
+            texto = sc.nextLine().trim();
+            if (texto.isEmpty()) {
+                System.out.println("este dato no puede quedar vacio");
+            }
+        }
+        return texto;
+    }
+
+    // Atiende al primero de la cola segun el concierto que trae el cliente
     public void atenderSiguiente() {
         if (colaClientes.estaVacia()) {
             System.out.println("no hay clientes en la cola");
             return;
         }
+        // Siempre sale de la cola al ser atendido, compre o no
         Cliente clienteAtendido = colaClientes.desencolar();
         System.out.println("atendiendo a: " + clienteAtendido.getNombre()
                 + " (ced: " + clienteAtendido.getCedula()
@@ -113,7 +127,11 @@ public class WaveticketManager {
             return;
         }
 
+        // Simula de 0 a 3 personas antes en la fila (sin pasarse de las que hay)
         int antes = random.nextInt(4);
+        if (antes > colaClientes.getTamano()) {
+            antes = colaClientes.getTamano();
+        }
         if (antes > 0) {
             System.out.println("hay " + antes + " personas antes que usted en la fila");
             for (int i = 0; i < antes && !colaClientes.estaVacia(); i++) {
@@ -129,8 +147,7 @@ public class WaveticketManager {
         }
 
         int cedula = leerEntero(sc, "cedula (Ej: 114560789): ");
-        System.out.print("nombre completo (Ej: Ana Rodriguez): ");
-        String nombre = sc.nextLine().trim();
+        String nombre = leerTexto(sc, "nombre completo (Ej: Ana Rodriguez): ");
         int telefono = leerEntero(sc, "telefono (Ej: 88112233): ");
 
         c.mostrarAsientos();
@@ -148,6 +165,7 @@ public class WaveticketManager {
             System.out.println("asiento " + (vendidos + 1) + " de " + cantidad);
             int fila = leerEntero(sc, "  fila (1-" + c.getFilas() + "): ");
             int col = leerEntero(sc, "  columna (1-" + c.getColumnas() + "): ");
+            // Se resta 1 porque el usuario ve filas/columnas desde 1 y la matriz inicia en 0
             if (c.venderAsiento(fila - 1, col - 1)) {
                 vendidos++;
             } else {

@@ -18,6 +18,7 @@ public class Menu {
 
     public void menuPrincipal() {
         int opcion = 0;
+        // El ciclo termina por condicion cuando el usuario elige 3
         while (opcion != 3) {
             System.out.println("\n--- Waveticket Manager ---");
             System.out.println("1. Ingreso de Administrador");
@@ -127,10 +128,8 @@ public class Menu {
             System.out.println("ya existe un artista con ese id");
             return;
         }
-        System.out.print("nombre del artista (Ej: Soda Stereo): ");
-        String nombre = sc.nextLine().trim();
-        System.out.print("genero musical (Ej: Rock): ");
-        String genero = sc.nextLine().trim();
+        String nombre = sistema.leerTexto(sc, "nombre del artista (Ej: Soda Stereo): ");
+        String genero = sistema.leerTexto(sc, "genero musical (Ej: Rock): ");
         int ranking = sistema.leerEntero(sc, "posicion en el ranking (Ej: 13): ");
         if (ranking <= 0) {
             System.out.println("el ranking debe ser mayor a 0");
@@ -170,12 +169,9 @@ public class Menu {
             System.out.println("no existe un artista con ese id, registrelo primero");
             return;
         }
-        System.out.print("nombre del evento (Ej: Gira 2027): ");
-        String nombre = sc.nextLine().trim();
-        System.out.print("fecha (Ej: 25/07/2027): ");
-        String fecha = sc.nextLine().trim();
-        System.out.print("lugar (Ej: Estadio Nacional): ");
-        String lugar = sc.nextLine().trim();
+        String nombre = sistema.leerTexto(sc, "nombre del evento (Ej: Gira 2027): ");
+        String fecha = sistema.leerTexto(sc, "fecha (Ej: 25/07/2027): ");
+        String lugar = sistema.leerTexto(sc, "lugar (Ej: Estadio Nacional): ");
         int filas = sistema.leerEntero(sc, "cantidad de filas de asientos (Ej: 5): ");
         int columnas = sistema.leerEntero(sc, "cantidad de columnas de asientos (Ej: 8): ");
         if (filas <= 0 || columnas <= 0) {
@@ -188,6 +184,10 @@ public class Menu {
             return;
         }
         int tipoEstado = sistema.leerEntero(sc, "estado inicial (1. ACTIVO, 2. EN_PLANEACION): ");
+        while (tipoEstado != 1 && tipoEstado != 2) {
+            System.out.println("opcion invalida, elija 1 o 2");
+            tipoEstado = sistema.leerEntero(sc, "estado inicial (1. ACTIVO, 2. EN_PLANEACION): ");
+        }
         String estado = "ACTIVO";
         if (tipoEstado == 2) {
             estado = "EN_PLANEACION";

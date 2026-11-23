@@ -1,4 +1,5 @@
 
+// Lista doblemente enlazada para manejar los conciertos
 public class ListaConciertos {
 
     private NodoConcierto cabeza;
@@ -16,7 +17,7 @@ public class ListaConciertos {
     public Concierto buscarPorCodigo(String codigo) {
         NodoConcierto actual = cabeza;
         while (actual != null) {
-            if (actual.getConcierto().getCodigo().equals(codigo)) {
+            if (actual.getConcierto().getCodigo().equalsIgnoreCase(codigo)) {
                 return actual.getConcierto();
             }
             actual = actual.getSiguiente();
@@ -110,20 +111,21 @@ public class ListaConciertos {
         }
         NodoConcierto actual = cabeza;
         while (actual != null) {
-            if (actual.getConcierto().getCodigo().equals(codigo)) {
+            if (actual.getConcierto().getCodigo().equalsIgnoreCase(codigo)) {
+                // Caso 1: eliminar el primero, Caso 2: el ultimo, Caso 3: en medio
                 if (actual == cabeza) {
                     cabeza = actual.getSiguiente();
                     if (cabeza != null) {
                         cabeza.setAnterior(null);
                     } else {
-                        cola = null; // La lista quedó vacía
+                        cola = null; // La lista quedo vacia
                     }
                 } else if (actual == cola) {
                     cola = actual.getAnterior();
                     if (cola != null) {
                         cola.setSiguiente(null);
                     } else {
-                        cabeza = null; // La lista quedó vacía
+                        cabeza = null; // La lista quedo vacia
                     }
                 } else {
                     actual.getAnterior().setSiguiente(actual.getSiguiente());
@@ -143,7 +145,7 @@ public class ListaConciertos {
         }
         NodoConcierto actual = cabeza;
         while (actual != null) {
-            if (actual.getConcierto().getCodigo().equals(codigo)) {
+            if (actual.getConcierto().getCodigo().equalsIgnoreCase(codigo)) {
                 if (actual.getConcierto().getEstado().equalsIgnoreCase("CANCELADO")) {
                     return "ese concierto ya estaba cancelado";
                 }

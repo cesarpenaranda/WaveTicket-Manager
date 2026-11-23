@@ -101,6 +101,7 @@ public class CargadorArchivos {
 
     }
 
+    // Se leen las lineas antes para poder crear el arreglo con el tamano exacto
     public static Cliente[] cargarFans(String rutaArchivo) {
         int total = contarLineas(rutaArchivo);
         Cliente[] fans = new Cliente[total];
@@ -139,6 +140,7 @@ public class CargadorArchivos {
         return fans;
     }
 
+    // Mete todos los fans cargados en la cola unica del sistema
     public static void cargarColaFans(Cliente[] fans, ColaClientes cola) {
         if (fans == null || cola == null) {
             return;

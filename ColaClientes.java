@@ -1,4 +1,5 @@
 
+// Cola FIFO con lista enlazada simple para la fila de clientes
 public class ColaClientes {
 
     private NodoCliente cabeza;
